@@ -1,11 +1,18 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import createLogger from 'redux-logger';
 import { Provider } from 'react-redux';
 import App from './containers/App.js';
 import todoApp from './reducers';
 
-const store = createStore(todoApp);
+const loggerMiddleware = createLogger();
+
+const store = applyMiddleware(
+  thunkMiddleware, // lets us dispatch() functions
+  loggerMiddleware // neat middleware that logs actions
+)(createStore)(todoApp);
 
 const rootElement = document.getElementById('app');
 

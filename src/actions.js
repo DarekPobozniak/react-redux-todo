@@ -20,11 +20,24 @@ export const VisibilityFilters = {
  */
 let nextTodoId = 0;
 
-export function addTodo(text) {
+export function addTodoOptimistic(text) {
   return {
     type: ADD_TODO,
     id: nextTodoId++,
     text,
+  };
+}
+
+export function addTodo(text) {
+  const url = 'http://www.mocky.io/v2/56a5d31d120000061fc610c5';
+
+  return dispatch => {
+    dispatch(addTodoOptimistic(text));
+
+    return fetch(url)
+      .then(response => response.json())
+      .then(json => console.log(json))
+      .catch(error => console.log(error));
   };
 }
 
