@@ -7,7 +7,9 @@ import { Provider } from 'react-redux';
 import App from './containers/App.js';
 import todoApp from './reducers';
 
-const loggerMiddleware = createLogger();
+const loggerMiddleware = createLogger({
+  predicate: () => process.env.NODE_ENV === 'development',
+});
 
 const store = applyMiddleware(
   thunkMiddleware, // lets us dispatch() functions
