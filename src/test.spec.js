@@ -1,13 +1,36 @@
-const assert = require('assert');
+import expect from 'expect';
+import * as actions from './actions';
+import * as types from './constants/ActionTypes';
+// const assert = require('assert');
 
-describe('Array', () => {
-  describe('#indexOf()', () => {
-    it('should return -1 when the value is not present', () => {
-      assert.equal(-1, [1, 2, 3].indexOf(5));
-      assert.equal(-1, [1, 2, 3].indexOf(0));
-    });
-    it('should return 2 when the value is 3', () => {
-      assert.equal(2, [1, 2, 3].indexOf(3));
-    });
+describe('actions', () => {
+  it('should create an action to add a todo', () => {
+    const text = 'First todo item';
+    const expectedAction = {
+      id: 0,
+      type: types.ADD_TODO,
+      text,
+    };
+    expect(actions.addTodo(text)).toEqual(expectedAction);
+  });
+
+  it('should create an action to toggle a todo', () => {
+    const id = 0;
+    const expectedAction = {
+      type: types.TOGGLE_TODO,
+      id,
+    };
+
+    expect(actions.toggleTodo(0)).toEqual(expectedAction);
+  });
+
+  it('should create an action to change visibility filter', () => {
+    const filter = 'SHOW_ALL';
+    const expectedAction = {
+      type: types.SET_VISIBILITY_FILTER,
+      filter,
+    };
+
+    expect(actions.setVisibilityFilter(filter)).toEqual(expectedAction);
   });
 });

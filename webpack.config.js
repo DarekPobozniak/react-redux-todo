@@ -37,10 +37,10 @@ var getLoaders = function () {
     {
       test: /\.js$/,
       include: path.join(__dirname, 'src'),
-      loader: 'babel-loader',
+      loader: 'babel-loader'/*,
       query: {
         presets: ['es2015', 'stage-0', 'react']
-      }
+      }*/
     },
     {
       test: /\.scss$/, // Only .css files

@@ -1,9 +1,4 @@
-/*
- * action types
- */
-export const ADD_TODO = 'ADD_TODO';
-export const TOGGLE_TODO = 'TOGGLE_TODO';
-export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER';
+import * as types from './constants/ActionTypes';
 
 /*
  * other constants
@@ -20,15 +15,15 @@ export const VisibilityFilters = {
  */
 let nextTodoId = 0;
 
-export function addTodoOptimistic(text) {
+export function addTodo(text) {
   return {
-    type: ADD_TODO,
+    type: types.ADD_TODO,
     id: nextTodoId++,
     text,
   };
 }
 
-export function addTodo(text) {
+/* export function addTodo(text) {
   const url = 'http://www.mocky.io/v2/56a5d31d120000061fc610c5';
 
   return dispatch => {
@@ -39,12 +34,12 @@ export function addTodo(text) {
       .then(json => console.log(json))
       .catch(error => console.log(error));
   };
-}
+}*/
 
 export function toggleTodo(id) {
-  return { type: TOGGLE_TODO, id };
+  return { type: types.TOGGLE_TODO, id };
 }
 
 export function setVisibilityFilter(filter) {
-  return { type: SET_VISIBILITY_FILTER, filter };
+  return { type: types.SET_VISIBILITY_FILTER, filter };
 }
