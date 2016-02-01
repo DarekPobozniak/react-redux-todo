@@ -1,5 +1,8 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
+import { routeActions } from 'react-router-redux';
+
 import { addTodo, toggleTodo, setVisibilityFilter } from '../actions';
 
 import AddTodo from '../components/AddTodo';
@@ -8,8 +11,11 @@ import Footer from '../components/Footer';
 
 import '../styles.scss';
 
-const TodoApp = ({ dispatch, todos, visibilityFilter }) => (
+const TodoApp = ({ dispatch, todos, visibilityFilter, children }) => (
   <div>
+    <Link to="/home">Home</Link>{' '}<Link to="/about">About</Link>
+
+    {children}
     <AddTodo
       onAddClick={text => dispatch(addTodo(text))}
     />
@@ -21,9 +27,10 @@ const TodoApp = ({ dispatch, todos, visibilityFilter }) => (
     />
     <Footer
       visibilityFilter={visibilityFilter}
-      onFilterChange={filter =>
-        dispatch(setVisibilityFilter(filter))
-      }
+      onFilterChange={filter => {
+        dispatch(setVisibilityFilter(filter));
+        // dispatch(routeActions.push('/about'));
+      }}
     />
   </div>
 );
@@ -64,6 +71,7 @@ const mapStateToProps = (state) => {
       state.visibilityFilter
     ),
     visibilityFilter: state.visibilityFilter,
+    routeActions,
   };
 };
 
