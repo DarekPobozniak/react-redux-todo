@@ -10,8 +10,8 @@ const todos = (state = [], action) => {
         {
           id: action.id,
           text: action.text,
-          completed: false
-        }
+          completed: false,
+        },
       ];
     case types.TOGGLE_TODO:
       return state.map(todo => {
@@ -19,10 +19,9 @@ const todos = (state = [], action) => {
           return todo;
         }
 
-        return {
-          ...todo,
-          completed: !todo.completed
-        };
+        return Object.assign({}, todo, {
+          completed: !todo.completed,
+        });
       });
     default:
       return state;
@@ -36,12 +35,12 @@ const visibilityFilter = (state = types.VisibilityFilters.SHOW_ALL, action) => {
     default:
       return state;
   }
-}
+};
 
 const todoApp = combineReducers({
   todos,
   visibilityFilter,
-  router
-})
+  router,
+});
 
 export default todoApp;

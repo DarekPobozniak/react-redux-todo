@@ -1,19 +1,31 @@
 import React, { PropTypes } from 'react';
 
+const FooterLink = ({ filter, name, onFilterChange }) => {
+  const handleTodoClick = (e) => {
+    e.preventDefault();
+    onFilterChange(filter);
+  };
+
+  return (
+    <a href="#"
+      onClick={handleTodoClick}
+    >
+      {name}
+    </a>
+  );
+};
+
 const Footer = ({ visibilityFilter, onFilterChange }) => {
   const renderFilter = (filter, name) => {
     if (filter === visibilityFilter) {
       return <span>{name}</span>;
     }
     return (
-      <a href="#"
-        onClick={e => {
-          e.preventDefault();
-          onFilterChange(filter);
-        }}
-      >
-        {name}
-      </a>
+      <FooterLink
+        filter={filter}
+        name={name}
+        onFilterChange={onFilterChange}
+      />
     );
   };
 

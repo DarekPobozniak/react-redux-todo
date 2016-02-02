@@ -1,13 +1,19 @@
 import React, { PropTypes } from 'react';
 
-const Todo = ({ onClick, completed, text }) => (
-  <li
-    onClick={onClick}
-    style={{ textDecoration: completed ? 'line-through' : 'none' }}
-  >
-    {text}
-  </li>
-);
+const Todo = ({ onClick, completed, text, id }) => {
+  const handleClick = () => {
+    onClick(id);
+  };
+
+  return (
+    <li
+      onClick={handleClick}
+      style={{ textDecoration: completed ? 'line-through' : 'none' }}
+    >
+      {text}
+    </li>
+  );
+};
 
 Todo.propTypes = {
   onClick: PropTypes.func.isRequired,
@@ -21,7 +27,7 @@ const TodoList = ({ todos, onTodoClick }) => (
       <Todo
         key={todo.id}
         {...todo}
-        onClick={() => onTodoClick(todo.id)}
+        onClick={onTodoClick}
       />
     )}
   </ul>

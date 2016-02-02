@@ -11,29 +11,30 @@ import Footer from '../components/Footer';
 
 import '../styles.scss';
 
-const TodoApp = ({ dispatch, todos, visibilityFilter, children }) => (
-  <div>
-    <Link to="/home">Home</Link>{' '}<Link to="/about">About</Link>
+const TodoApp = ({ dispatch, todos, visibilityFilter, children }) => {
+  const handleAddTodoClick = text => dispatch(addTodo(text));
+  const handleTodoClick = id => dispatch(toggleTodo(id));
+  const handleFooterLinkClick = filter => dispatch(setVisibilityFilter(filter));
 
-    {children}
-    <AddTodo
-      onAddClick={text => dispatch(addTodo(text))}
-    />
-    <TodoList
-      todos={todos}
-      onTodoClick={id =>
-        dispatch(toggleTodo(id))
-      }
-    />
-    <Footer
-      visibilityFilter={visibilityFilter}
-      onFilterChange={filter => {
-        dispatch(setVisibilityFilter(filter));
-        // dispatch(routeActions.push('/about'));
-      }}
-    />
-  </div>
-);
+  return (
+    <div>
+      <Link to="/home">Home</Link>{' '}<Link to="/about">About</Link>
+
+      {children}
+      <AddTodo
+        onAddClick={handleAddTodoClick}
+      />
+      <TodoList
+        todos={todos}
+        onTodoClick={handleTodoClick}
+      />
+      <Footer
+        visibilityFilter={visibilityFilter}
+        onFilterChange={handleFooterLinkClick}
+      />
+    </div>
+  );
+};
 
 TodoApp.propTypes = {
   todos: PropTypes.arrayOf(PropTypes.shape({
@@ -64,16 +65,16 @@ const getVisibleTodos = (todos, filter) => {
   }
 };
 
-const mapStateToProps = (state) => {
-  return {
+const mapStateToProps = (state) => (
+  {
     todos: getVisibleTodos(
       state.todos,
       state.visibilityFilter
     ),
     visibilityFilter: state.visibilityFilter,
     routeActions,
-  };
-};
+  }
+);
 
 export default connect(
   mapStateToProps

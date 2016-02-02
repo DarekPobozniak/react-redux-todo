@@ -3,17 +3,18 @@ import React, { PropTypes } from 'react';
 const AddTodo = ({ onAddClick }) => {
   let input;
 
+  const handleClick = () => {
+    onAddClick(input.value);
+    input.value = '';
+  };
+
   return (
     <div>
       <input ref={node => {
         input = node;
       }}
       />
-      <button onClick={() => {
-        onAddClick(input.value);
-        input.value = '';
-      }}
-      >
+      <button onClick={handleClick}>
         Add Todo
       </button>
     </div>
