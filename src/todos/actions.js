@@ -1,14 +1,11 @@
-import * as types from './constants/ActionTypes';
+import * as types from '../constants/ActionTypes';
 
 /*
  * action creators
  */
-let nextTodoId = 0;
-
 export function addTodo(text) {
   return {
     type: types.ADD_TODO,
-    id: nextTodoId++,
     text,
   };
 }

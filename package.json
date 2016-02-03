@@ -6,9 +6,9 @@
   "scripts": {
     "build": "echo '=> building' && NODE_ENV=production ./node_modules/.bin/webpack --progress",
     "lint": "echo '=> linting' && ./node_modules/.bin/eslint src",
-    "prebuild": "npm run lint -s",
+    "prebuild": "#npm run lint -s",
     "start": "open index.html",
-    "test": "mocha --compilers js:babel-core/register --recursive \"./src/*.spec.js\"",
+    "test": "mocha --compilers js:babel-core/register --recursive \"./src/**/*.spec.js\"",
     "test:watch": "npm test -- --watch",
     "watch": "NODE_ENV=development ./node_modules/.bin/webpack --watch --progress"
   },

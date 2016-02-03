@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { routeActions } from 'react-router-redux';
 
-import { addTodo, toggleTodo, setVisibilityFilter } from '../actions';
+import { addTodo, toggleTodo, setVisibilityFilter } from '../todos/actions';
 
-import AddTodo from '../components/AddTodo';
-import TodoList from '../components/TodoList';
-import Footer from '../components/Footer';
+import AddTodo from '../todos/AddTodo';
+import TodoList from '../todos/TodoList';
+import Footer from '../todos/Footer';
 
 import '../styles.scss';
 

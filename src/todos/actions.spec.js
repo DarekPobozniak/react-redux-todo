@@ -1,13 +1,11 @@
 import expect from 'expect';
 import * as actions from './actions';
-import * as types from './constants/ActionTypes';
-// const assert = require('assert');
+import * as types from '../constants/ActionTypes';
 
-describe('actions', () => {
+describe('todo actions', () => {
   it('should create an action to add a todo', () => {
     const text = 'First todo item';
     const expectedAction = {
-      id: 0,
       type: types.ADD_TODO,
       text,
     };

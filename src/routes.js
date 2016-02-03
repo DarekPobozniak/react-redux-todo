@@ -2,8 +2,8 @@ import React from 'react';
 import { Route } from 'react-router';
 
 import App from './containers/App.js';
-import Home from './components/Home';
-import About from './components/About';
+import Home from './home/Home';
+import About from './about/About';
 
 export default (
   <div>
