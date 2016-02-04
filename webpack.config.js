@@ -1,6 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var env = process.env.NODE_ENV;
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const getPlugins = () => {
   const GLOBALS = {
@@ -11,6 +12,7 @@ const getPlugins = () => {
   };
 
   const plugins = [
+    new ExtractTextPlugin('dist/main.css'),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin(GLOBALS), // Tells React to build in prod mode. https://facebook.github.io/react/downloads.html
   ];
@@ -43,7 +45,8 @@ const getLoaders = () => [
   },
   {
     test: /\.scss$/, // Only .css files
-    loader: 'style!css!sass', // Run both loaders
+    loader: ExtractTextPlugin.extract('css!sass'),
+    // loader: 'style!css!sass', // Run both loaders
   },
 ];
 
