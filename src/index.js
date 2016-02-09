@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import { Router } from 'react-router';
 import { syncHistory } from 'react-router-redux';
 import createHistory from 'history/lib/createHashHistory';
-import todoApp from './reducers';
+import reducer from './reducers';
 import Routes from './routes';
 
 const loggerMiddleware = createLogger({
@@ -21,7 +21,7 @@ const store = applyMiddleware(
   thunkMiddleware, // lets us dispatch() functions
   loggerMiddleware, // neat middleware that logs actions
   reduxRouterMiddleware
-)(createStore)(todoApp);
+)(createStore)(reducer);
 
 // Required for replaying actions from devtools to work
 // reduxRouterMiddleware.listenForReplays(store);

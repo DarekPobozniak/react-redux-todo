@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 
 const FooterLink = ({ filter, name, onFilterChange }) => {
   const handleTodoClick = (e) => {
@@ -35,6 +36,8 @@ const Footer = ({ visibilityFilter, onFilterChange }) => {
       {' '} {renderFilter('SHOW_ALL', 'All')}
       {' '} {renderFilter('SHOW_ACTIVE', 'Active')}
       {' '} {renderFilter('SHOW_COMPLETED', 'Completed')}
+      <br />
+      <Link to="/home">Back to homepage</Link>
     </p>
   );
 };

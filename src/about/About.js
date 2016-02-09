@@ -18,7 +18,7 @@ class About extends Component {
     const { authors } = this.props;
     return (
       <div className="about">
-        <h2>About Page</h2>
+        <h1>About</h1>
         <AuthorsList authors={authors} />
       </div>
     );
