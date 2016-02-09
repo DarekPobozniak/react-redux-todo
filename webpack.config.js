@@ -39,8 +39,7 @@ const getPlugins = () => {
 const getLoaders = () => [
   {
     test: /\.js$/,
-    include: path.join(__dirname, 'src'),
-    // exclude: /\.spec.js$/,
+    include: path.resolve(__dirname, 'src'),
     loader: 'babel-loader',
   },
   {

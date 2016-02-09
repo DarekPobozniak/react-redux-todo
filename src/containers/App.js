@@ -1,9 +1,9 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { routeActions } from 'react-router-redux';
 
-import { addTodo, toggleTodo, setVisibilityFilter } from '../todos/actions';
+import { addTodo, toggleTodo, setVisibilityFilter, fetchTodos } from '../todos/actions';
 
 import AddTodo from '../todos/AddTodo';
 import TodoList from '../todos/TodoList';
@@ -11,30 +11,54 @@ import Footer from '../todos/Footer';
 
 import '../styles.scss';
 
-const TodoApp = ({ dispatch, todos, visibilityFilter, children }) => {
-  const handleAddTodoClick = text => dispatch(addTodo(text));
-  const handleTodoClick = id => dispatch(toggleTodo(id));
-  const handleFooterLinkClick = filter => dispatch(setVisibilityFilter(filter));
+class TodoApp extends Component {
+  constructor(props) {
+    super(props);
+  }
 
-  return (
-    <div>
-      <Link to="/home">Home</Link>{' '}<Link to="/about">About</Link>
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(fetchTodos());
+  }
 
-      {children}
-      <AddTodo
-        onAddClick={handleAddTodoClick}
-      />
-      <TodoList
-        todos={todos}
-        onTodoClick={handleTodoClick}
-      />
-      <Footer
-        visibilityFilter={visibilityFilter}
-        onFilterChange={handleFooterLinkClick}
-      />
-    </div>
-  );
-};
+  handleAddTodoClick = (text) => {
+    const { dispatch } = this.props;
+    dispatch(addTodo(text));
+  };
+
+  handleTodoClick = (id) => {
+    const { dispatch } = this.props;
+    dispatch(toggleTodo(id));
+  };
+
+  handleFooterLinkClick = (filter) => {
+    const { dispatch } = this.props;
+    dispatch(setVisibilityFilter(filter));
+  };
+
+  render() {
+    const { todos, visibilityFilter, children } = this.props;
+
+    return (
+      <div>
+        <Link to="/home">Home</Link>{' '}<Link to="/about">About</Link>
+
+        {children}
+        <AddTodo
+          onAddClick={this.handleAddTodoClick}
+        />
+        <TodoList
+          todos={todos}
+          onTodoClick={this.handleTodoClick}
+        />
+        <Footer
+          visibilityFilter={visibilityFilter}
+          onFilterChange={this.handleFooterLinkClick}
+        />
+      </div>
+    );
+  }
+}
 
 TodoApp.propTypes = {
   todos: PropTypes.arrayOf(PropTypes.shape({
@@ -46,6 +70,7 @@ TodoApp.propTypes = {
     'SHOW_ACTIVE',
     'SHOW_COMPLETED',
   ]).isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 const getVisibleTodos = (todos, filter) => {
@@ -68,7 +93,7 @@ const getVisibleTodos = (todos, filter) => {
 const mapStateToProps = (state) => (
   {
     todos: getVisibleTodos(
-      state.todos,
+      state.todos.items,
       state.visibilityFilter
     ),
     visibilityFilter: state.visibilityFilter,

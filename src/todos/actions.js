@@ -10,18 +10,32 @@ export function addTodo(text) {
   };
 }
 
-/* export function addTodo(text) {
-  const url = 'http://www.mocky.io/v2/56a5d31d120000061fc610c5';
+function requestTodos() {
+  return {
+    type: types.REQUEST_TODOS,
+  };
+}
+
+function receiveTodos(todos) {
+  return {
+    type: types.RECEIVE_TODOS,
+    todos,
+  };
+}
+
+
+export function fetchTodos() {
+  const url = 'http://www.mocky.io/v2/56b52a6d0f00007c2987563c';
 
   return dispatch => {
-    dispatch(addTodoOptimistic(text));
+    dispatch(requestTodos());
 
     return fetch(url)
       .then(response => response.json())
-      .then(json => console.log(json))
+      .then(json => dispatch(receiveTodos(json)))
       .catch(error => console.log(error));
   };
-}*/
+}
 
 export function toggleTodo(id) {
   return { type: types.TOGGLE_TODO, id };
