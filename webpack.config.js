@@ -2,6 +2,14 @@ var path = require('path');
 var webpack = require('webpack');
 var env = process.env.NODE_ENV;
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var pkg = require('./package.json');
+var banner = `
+  ${pkg.name} - ${pkg.description}
+  Author: ${pkg.author}
+  Version: v${pkg.version}
+  Url: ${pkg.homepage}
+  License(s): ${pkg.license}
+`;
 
 const getPlugins = () => {
   const GLOBALS = {
@@ -26,7 +34,8 @@ const getPlugins = () => {
           compress: {
             warnings: false,
           },
-        })
+        }),
+        new webpack.BannerPlugin(banner)
       );
       break;
     default:
