@@ -1,4 +1,5 @@
 import * as types from '../constants/ActionTypes';
+import { Fetch } from '../helpers';
 
 /*
  * action creators
@@ -31,9 +32,10 @@ export function fetchTodos() {
     dispatch(requestTodos());
 
     return fetch(url)
-      .then(response => response.json())
+      .then(Fetch.checkStatus)
+      .then(Fetch.parseJSON)
       .then(json => dispatch(receiveTodos(json)))
-      .catch(error => console.log(error));
+      .catch(error => debug.error(error));
   };
 }
 

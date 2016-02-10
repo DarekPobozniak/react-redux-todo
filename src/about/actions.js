@@ -1,4 +1,5 @@
 import { RECEIVE_AUTHORS } from '../constants/ActionTypes';
+import { Fetch } from '../helpers';
 
 function receiveAuthors(items) {
   return {
@@ -12,6 +13,8 @@ export function fetchAuthors() {
 
   return dispatch =>
     fetch(url)
-      .then(response => response.json())
-      .then(json => dispatch(receiveAuthors(json)));
+      .then(Fetch.checkStatus)
+      .then(Fetch.parseJSON)
+      .then(json => dispatch(receiveAuthors(json)))
+      .catch(error => debug.error(error));
 }

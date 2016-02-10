@@ -3,5 +3,9 @@
   "env": {
     "es6": "true",
     "mocha": "true"
+  },
+  "globals": {
+    "debug": "false",
+    "__DEV__": "false"
   }
 }
