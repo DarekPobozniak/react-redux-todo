@@ -4,9 +4,8 @@ import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import { Provider } from 'react-redux';
-import { Router } from 'react-router';
+import { Router, hashHistory } from 'react-router';
 import { syncHistory } from 'react-router-redux';
-import createHistory from 'history/lib/createHashHistory';
 import reducer from './reducers';
 import Routes from './routes';
 
@@ -14,7 +13,7 @@ const loggerMiddleware = createLogger({
   predicate: () => process.env.NODE_ENV === 'development',
 });
 
-const history = createHistory();
+const history = hashHistory; // browserHistory
 const reduxRouterMiddleware = syncHistory(history);
 
 const store = applyMiddleware(
