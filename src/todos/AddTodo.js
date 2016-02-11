@@ -10,7 +10,7 @@ const AddTodo = ({ onAddClick }) => {
 
   return (
     <div>
-      <input ref={node => {
+      <input ref={function setInputRef(node) {
         input = node;
       }}
       />

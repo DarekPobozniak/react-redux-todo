@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import { routeActions } from 'react-router-redux';
 
 import { addTodo, toggleTodo, setVisibilityFilter, fetchTodos } from '../todos/actions';
@@ -22,9 +21,8 @@ class Todos extends Component {
   }
 
   handleAddTodoClick = (text) => {
-    const { dispatch, routeActions } = this.props;
+    const { dispatch } = this.props;
     dispatch(addTodo(text));
-    // dispatch(routeActions.push('/home'));
   };
 
   handleTodoClick = (id) => {
@@ -35,6 +33,11 @@ class Todos extends Component {
   handleFooterLinkClick = (filter) => {
     const { dispatch } = this.props;
     dispatch(setVisibilityFilter(filter));
+  };
+
+  handleRedirect = () => {
+    const { dispatch } = this.props;
+    dispatch(routeActions.push('/home'));
   };
 
   render() {
@@ -97,7 +100,6 @@ const mapStateToProps = (state) => (
       state.visibilityFilter
     ),
     visibilityFilter: state.visibilityFilter,
-    routeActions,
   }
 );
 
