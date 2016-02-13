@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { routeActions } from 'react-router-redux';
 
-import { addTodo, toggleTodo, setVisibilityFilter, fetchTodos } from '../todos/actions';
+import { addTodo, toggleTodo, setVisibilityFilter, fetchTodosIfNeeded } from '../todos/actions';
 
 import AddTodo from '../todos/AddTodo';
 import TodoList from '../todos/TodoList';
@@ -17,7 +17,7 @@ class Todos extends Component {
 
   componentDidMount() {
     const { dispatch } = this.props;
-    dispatch(fetchTodos());
+    dispatch(fetchTodosIfNeeded());
   }
 
   handleAddTodoClick = (text) => {

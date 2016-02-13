@@ -6,74 +6,101 @@ describe('todo reducer', () => {
   it('should return initial state', () => {
     expect(
       todos(undefined, {})
-    ).toEqual([]);
+    ).toEqual({
+      isFetching: false,
+      items: [],
+    });
   });
 
   it('should handle ADD_TODO', () => {
     expect(
-      todos([], {
-        type: types.ADD_TODO,
-        text: 'Run the tests',
-      })
-    ).toEqual([
-      {
-        id: 0,
-        text: 'Run the tests',
-        completed: false,
-      },
-    ]);
+      todos(
+        {
+          isFetching: false,
+          items: [],
+        }, {
+          type: types.ADD_TODO,
+          text: 'Run the tests',
+        }
+      )
+    ).toEqual({
+      isFetching: false,
+      items: [
+        {
+          id: 0,
+          text: 'Run the tests',
+          completed: false,
+        },
+      ],
+    });
 
     expect(
-      todos([
+      todos(
+        {
+          isFetching: false,
+          items: [
+            {
+              id: 0,
+              text: 'First todo',
+              completed: false,
+            },
+          ],
+        }, {
+          type: types.ADD_TODO,
+          text: 'Run the tests',
+        }
+      )
+    ).toEqual(
+      {
+        isFetching: false,
+        items: [
+          {
+            id: 0,
+            text: 'First todo',
+            completed: false,
+          },
+          {
+            id: 1,
+            text: 'Run the tests',
+            completed: false,
+          },
+        ],
+      }
+    );
+  });
+
+  it('should handle TOGGLE_TODO', () => {
+    const stateBefore = {
+      isFetching: false,
+      items: [
         {
           id: 0,
           text: 'First todo',
           completed: false,
         },
-      ], {
-        type: types.ADD_TODO,
-        text: 'Run the tests',
-      })
-    ).toEqual([
-      {
-        id: 0,
-        text: 'First todo',
-        completed: false,
-      },
-      {
-        id: 1,
-        text: 'Run the tests',
-        completed: false,
-      },
-    ]);
-  });
+        {
+          id: 1,
+          text: 'Run the tests',
+          completed: false,
+        },
+      ],
+    };
 
-  it('should handle TOGGLE_TODO', () => {
-    const stateBefore = [
-      {
-        id: 0,
-        text: 'First todo',
-        completed: false,
-      },
-      {
-        id: 1,
-        text: 'Run the tests',
-        completed: false,
-      },
-    ];
-
-    const expectedState = [
-      {
-        id: 0,
-        text: 'First todo',
-        completed: false,
-      },
-      {
-        id: 1,
-        text: 'Run the tests',
-        completed: true,
-      },
-    ];
+    const expectedState = {
+      isFetching: false,
+      items: [
+        {
+          id: 0,
+          text: 'First todo',
+          completed: false,
+        },
+        {
+          id: 1,
+          text: 'Run the tests',
+          completed: true,
+        },
+      ],
+    };
 
     expect(
       todos(stateBefore, {

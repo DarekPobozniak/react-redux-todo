@@ -24,8 +24,7 @@ function receiveTodos(todos) {
   };
 }
 
-
-export function fetchTodos() {
+function fetchTodos() {
   const url = 'http://www.mocky.io/v2/56b52a6d0f00007c2987563c';
 
   return dispatch => {
@@ -36,6 +35,24 @@ export function fetchTodos() {
       .then(Fetch.parseJSON)
       .then(json => dispatch(receiveTodos(json)))
       .catch(error => debug.error(error));
+  };
+}
+
+function shouldFetchTodos(state) {
+  const todos = state.todos;
+
+  if (todos.items.length === 0) {
+    return true;
+  }
+
+  return false;
+}
+
+export function fetchTodosIfNeeded() {
+  return (dispatch, getState) => {
+    if (shouldFetchTodos(getState())) {
+      return dispatch(fetchTodos());
+    }
   };
 }
 
